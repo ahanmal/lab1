@@ -177,18 +177,22 @@ to the list containing the elements 3, 4, and 5? You'll want to
 replace the "[]" with the correct functional call.
 ......................................................................*)
 
-let square_all (lst : int list) : int list =
-  failwith "square_all not implemented" ;;
+let rec square_all (lst : int list) : int list =
+  match lst with
+  | [] -> lst
+  | head :: tail -> head * head :: square_all tail ;;
 
-let exercise6 = [] ;;
+let exercise6 = [3; 4; 5] ;;
 
 (*......................................................................
 Exercise 7: Define a recursive function that sums an integer
 list. (What's a sensible return value for the empty list?)
 ......................................................................*)
 
-let sum (lst : int list) : int =
-  failwith "sum not implemented" ;;
+let rec sum (lst : int list) : int =
+  match lst with
+  | [] -> 0
+  | head :: tail -> head + sum tail ;;
 
 (*......................................................................
 Exercise 8: Define a recursive function that returns the maximum
@@ -197,8 +201,13 @@ can raise an appropriate exception -- a Match_failure or
 Invalid_argument exception for instance.
 ......................................................................*)
 
-let max_list (lst : int list) : int =
-  failwith "max_list not implemented" ;;
+let rec max_list (lst : int list) : int =
+  match lst with
+  | [] -> raise (Invalid_argument "empty list")
+  | [f] -> f
+  | head :: tail -> let max = max_list tail in
+    if max > head then max else head ;;
+
 
 (*......................................................................
 Exercise 9: Define a function zip, that takes two int lists and
@@ -213,7 +222,12 @@ that, zip [1] [2; 3; 4] = [(1, 2); (false, 3); (false, 4)]?
 ......................................................................*)
 
 let zip (x : int list) (y : int list) : (int * int) list =
-  failwith "zip not implemented" ;;
+  failwith "not implemented" ;;
+  (* if List.length x <> List.length y then failwith "length mismatch" ;;
+  match x, y with
+  | [], []
+  | (headx :: tailx), (heady :: taily) ->
+ *)
 
 (*.....................................................................
 Exercise 10: Recall the definition of the function prods from lecture
